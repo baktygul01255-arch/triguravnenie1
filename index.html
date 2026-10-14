@@ -3,6 +3,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,500;0,700;1,500&family=PT+Sans:wght@400;700&family=PT+Serif:ital@0;1&family=PT+Mono&display=swap">
 <style>
+.work{min-height:max(560px,62vh)!important;font-size:.85rem!important;border:2px dashed var(--line)}
 [hidden]{display:none!important}
 /* Layout: школьная тетрадь — красная линия полей, вкладки, слева текст учебника, справа рисунок/модель на клетчатой бумаге */
 :root{
@@ -190,7 +191,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
       <div class="stack">
         <div class="card"><div class="eq" id="sEq"></div>
           <label class="sMode"><input type="checkbox" id="sAll"> <span data-i="sAllL"></span></label>
-          <div id="sWork" class="work"></div>
+          <div id="sWork" class="work paper-grid"></div>
           <div id="sCheck"></div>
           <ol class="steps" id="sSteps"></ol><div id="sAns"></div>
           <div class="row" id="sCtl" style="margin-top:14px"></div></div>
@@ -553,7 +554,7 @@ function drawSolve(){
   if(sig!==S.sig){S.sig=sig;S.shown=0;S.ans=false;S.picks=[];}
   $('#sAll').checked=S.all;
   const n=S.all?N:Math.min(S.shown,N), ansOn=S.all||S.ans||n>=N;
-  $('#sWork').hidden=S.all||ansOn; $('#sWork').innerHTML=L('Решите уравнение самостоятельно — в тетради или ручкой прямо здесь. Затем выберите свой ответ ниже или откройте решение по шагам.','Теңдеуді өз бетіңізше шешіңіз — дәптерде немесе осы жерде қаламмен. Содан кейін төменнен жауабыңызды таңдаңыз немесе шешімді қадаммен ашыңыз.');
+  $('#sWork').hidden=false; $('#sWork').innerHTML=L('Место для решения: включите ручку ✎ (справа внизу) и решайте прямо здесь. Затем выберите свой ответ ниже.','Шешуге арналған орын: қаламды ✎ (оң жақ төменде) қосып, осы жерде шешіңіз. Содан кейін төменнен жауабыңызды таңдаңыз.');
   // самопроверка
   const O=solveOpts(f,k,b,a,R);
   const opts=withSeed(hashS(sig),()=>{const seen=new Set([strip(O.c)]);const w=[];for(const x of O.w){const t=strip(x);if(!seen.has(t)){seen.add(t);w.push(x);}}return shuffle([{h:O.c,ok:1},...shuffle(w).slice(0,3).map(h=>({h,ok:0}))]);});
